@@ -425,6 +425,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
 
         // TODO - fill in body
 
+        this.entries.enqueue(x);
         assert this.conventionHolds();
     }
 

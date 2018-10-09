@@ -195,13 +195,20 @@ public abstract class SortingMachineTest {
     public final void testisInInsertionMode() {
         SortingMachine<String> m = this.createFromArgsTest(ORDER, false, "blue",
                 "green");
-        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, false,
-                "blue", "green");
+        boolean mExpected = false;
 
         boolean modeM = m.isInInsertionMode();
-        boolean modeM_Expected = mExpected.isInInsertionMode();
-        assertEquals(modeM, modeM_Expected);
-        assertEquals(mExpected, m);
+        assertEquals(modeM, mExpected);
+    }
+
+    @Test
+    public final void testIsNotInInsertionMode() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, true, "blue",
+                "green");
+        boolean modeExpected = true;
+
+        boolean modeM = m.isInInsertionMode();
+        assertEquals(modeM, modeExpected);
     }
 
     @Test

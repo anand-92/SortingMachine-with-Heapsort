@@ -477,23 +477,22 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
      * Kernel methods ---------------------------------------------------------
      */
 
-    @Override
+     @Override
     public final void add(T x) {
         assert x != null : "Violation of: x is not null";
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
-        // TODO - fill in body
-
         this.entries.enqueue(x);
+
         assert this.conventionHolds();
     }
 
     @Override
     public final void changeToExtractionMode() {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
-
-        // TODO - fill in body
-
+        this.insertionMode = false;
+        this.heapSize = this.entries.length();
+        this.heap = buildHeap(this.entries, this.machineOrder);
         assert this.conventionHolds();
     }
 
@@ -503,11 +502,14 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
                 .isInInsertionMode() : "Violation of: not this.insertion_mode";
         assert this.size() > 0 : "Violation of: this.contents /= {}";
 
-        // TODO - fill in body
+        T first = this.heap.entry(0);
+        T last = this.heap.entry(this.heapSize - 1);
+        this.heap.replaceEntry(0, last);
+        this.heapSize--;
+        siftDown(this.heap, 0, this.heapSize - 1, this.machineOrder);
 
         assert this.conventionHolds();
-        // Fix this line to return the result after checking the convention.
-        return null;
+        return first;
     }
 
     @Override

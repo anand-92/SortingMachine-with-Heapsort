@@ -10,7 +10,7 @@ import components.sortingmachine.SortingMachine;
  * JUnit test fixture for {@code SortingMachine<String>}'s constructor and
  * kernel methods.
  *
- * @author Nik Anand and Hudson Arledge
+ * @author Put your name here
  *
  */
 public abstract class SortingMachineTest {
@@ -139,5 +139,69 @@ public abstract class SortingMachineTest {
 
     // TODO - add test cases for add, changeToExtractionMode, removeFirst,
     // isInInsertionMode, order, and size
+
+    @Test
+    public final void testAddNonEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, true,
+                "green");
+        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, true,
+                "green", "red");
+        m.add("red");
+        assertEquals(mExpected, m);
+    }
+
+    @Test
+    public final void testChangeToExtractionModeEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, true);
+        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, true);
+        m.changeToExtractionMode();
+        assertEquals(mExpected, m);
+    }
+
+    @Test
+    public final void testChangeToExtractionModeNonEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, true,
+                "green");
+        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, false,
+                "green");
+        m.changeToExtractionMode();
+        assertEquals(mExpected, m);
+    }
+
+    @Test
+    public final void testRemoveFirstToEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false,
+                "green");
+        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, false);
+
+        String removed = m.removeFirst();
+        assertEquals(removed, "green");
+        assertEquals(mExpected, m);
+    }
+
+    @Test
+    public final void testRemoveFirstMultipleEntries() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false, "blue",
+                "green", "red");
+        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, false,
+                "blue", "green");
+
+        String removed = m.removeFirst();
+        assertEquals(removed, "red");
+        assertEquals(mExpected, m);
+    }
+
+    @Test
+    public final void testisInInsertionMode() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false, "blue",
+                "green");
+        SortingMachine<String> mExpected = this.createFromArgsRef(ORDER, false,
+                "blue", "green");
+
+        boolean modeM = m.isInInsertionMode();
+        boolean modeM_Expected = mExpected.isInInsertionMode();
+        assertEquals(modeM, modeM_Expected);
+        assertEquals(mExpected, m);
+    }
 
 }

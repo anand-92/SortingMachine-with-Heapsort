@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import components.array.Array;
+import components.array.Array1L;
 import components.queue.Queue;
 import components.queue.Queue2;
 import components.sortingmachine.SortingMachine;

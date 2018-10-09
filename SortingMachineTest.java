@@ -218,6 +218,29 @@ public abstract class SortingMachineTest {
     }
 
     @Test
+    public final void testisNotInInsertionModeEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false);
+        SortingMachine<String> mExpected = this.createFromArgsTest(ORDER,
+                false);
+        boolean modeExpected = false;
+
+        boolean modeM = m.isInInsertionMode();
+        assertEquals(modeM, modeExpected);
+        assertEquals(m, mExpected);
+    }
+
+    @Test
+    public final void testIsInInsertionModeEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, true);
+        SortingMachine<String> mExpected = this.createFromArgsTest(ORDER, true);
+        boolean modeExpected = true;
+
+        boolean modeM = m.isInInsertionMode();
+        assertEquals(modeM, modeExpected);
+        assertEquals(m, mExpected);
+    }
+
+    @Test
     public final void testOrder() {
         SortingMachine<String> m = this.createFromArgsTest(ORDER, true);
         SortingMachine<String> mExpected = this.createFromArgsTest(ORDER, true);

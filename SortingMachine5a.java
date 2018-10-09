@@ -238,10 +238,22 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
          * requires clause, because it must be true when using the Array
          * representation for a complete binary tree.
          */
+        int left = 2 * top + 1;
+        int right = left + 1;
+        int last = array.length() - 1;
 
-        // TODO - fill in body
-        // *** you must use the recursive algorithm discussed in class ***
+        // ***the recursive algorithm discussed in class ***
+        //if right exists, heapify right and left
+        if (right <= last) {
+            heapify(array, left, order);
+            heapify(array, right, order);
 
+            //if only left exists, heapify left
+        } else if (left <= last) {
+            heapify(array, left, order);
+        }
+        //now that the left and right children are heaps, "sift down" the root
+        siftDown(array, top, last, order);
     }
 
     /**

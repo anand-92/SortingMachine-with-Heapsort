@@ -225,12 +225,23 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         assert order != null : "Violation of: order is not null";
         /*
          * Impractical to check the requires clause.
+        /*
+         * Impractical to check the requires clause.
          */
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        //grab length of q and create new hep with length of q
+        int length=q.length();
+        Array<T> heap = new Array1L<T>(length);
+        
+        //set entries in heap one by one from q
+        for(int i=0; i<length; i++)
+        {
+            heap.setEntry(i, q.dequeue());
+        }
+        //heapify the newly created heap
+        heapify(heap,0,order);
+        
+        return heap;
     }
 
     /**

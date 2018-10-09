@@ -285,7 +285,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
          * Impractical to check the requires clause.
          */
 
-        //grab length of q and create new hep with length of q
+        //grab length of q and create new heap with length of q
         int length=q.length();
         Array<T> heap = new Array1L<T>(length);
         

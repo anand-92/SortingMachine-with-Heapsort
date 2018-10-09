@@ -204,4 +204,35 @@ public abstract class SortingMachineTest {
         assertEquals(mExpected, m);
     }
 
+    @Test
+    public final void testOrder() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, true);
+        assertEquals(m.order(), ORDER);
+    }
+
+    @Test
+    public final void testSizeInsertionModeEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, true);
+        assertEquals(m.size(), 0);
+    }
+
+    @Test
+    public final void testSizeInsertionModeNonEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, true, "blue",
+                "green");
+        assertEquals(m.size(), 2);
+    }
+
+    @Test
+    public final void testSizeExtractionModeEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false);
+        assertEquals(m.size(), 0);
+    }
+
+    @Test
+    public final void testSizeExtractionModeNonEmpty() {
+        SortingMachine<String> m = this.createFromArgsTest(ORDER, false, "blue",
+                "green");
+        assertEquals(m.size(), 2);
+    }
 }

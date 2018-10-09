@@ -465,12 +465,20 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
 
     @Override
     public final int size() {
+         // TODO - fill in body
 
-        // TODO - fill in body
-
+        if(this.isInInsertionMode())
+        {
+            this.heapSize=this.heap.length();
+        }
+        else
+        {
+            this.heapSize=this.entries.length();
+        }
+        
         assert this.conventionHolds();
         // Fix this line to return the result after checking the convention.
-        return 0;
+        return this.heapSize;
     }
 
     @Override

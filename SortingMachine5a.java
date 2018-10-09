@@ -133,7 +133,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
      */
     private static <T> void siftDown(Array<T> array, int top, int last,
             Comparator<T> order) {
-         assert array != null : "Violation of: array is not null";
+        assert array != null : "Violation of: array is not null";
         assert order != null : "Violation of: order is not null";
         assert 0 <= top : "Violation of: 0 <= top";
         assert last < array.length() : "Violation of: last < |array.entries|";
@@ -155,7 +155,10 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
 
         //initialize the index of the root and the indexes/values of
         //its left and right children
-        T root = array.entry(top);
+        T root = null;
+        if (array.length() > 0) {
+            root = array.entry(top);
+        }
         T left = null;
         int leftIndex = 2 * top + 1;
         T right = null;
@@ -178,7 +181,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
 
         // ***the recursive algorithm discussed in class ***
 
-      //if left doesn't exist, then there are no children to sift down to
+        //if left doesn't exist, then there are no children to sift down to
         if (leftExists) {
             //if only left exists then its the smaller child by default
             if (leftExists && !rightExists) {
@@ -283,9 +286,8 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         assert q != null : "Violation of: q is not null";
         assert order != null : "Violation of: order is not null";
         /*
-         * Impractical to check the requires clause.
-        /*
-         * Impractical to check the requires clause.
+         * Impractical to check the requires clause. /* Impractical to check the
+         * requires clause.
          */
 
         //grab length of q and create new heap with length of q
@@ -479,7 +481,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
      * Kernel methods ---------------------------------------------------------
      */
 
-     @Override
+    @Override
     public final void add(T x) {
         assert x != null : "Violation of: x is not null";
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
@@ -494,6 +496,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         //change insertion mode to false
         this.insertionMode = false;
         //set the size of the heap to the number of entries
+
         this.heapSize = this.entries.length();
         //build the heap from the entries and the provided order
         this.heap = buildHeap(this.entries, this.machineOrder);
@@ -508,7 +511,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         //initialize the values of the first and last nodes
         T first = this.heap.entry(0);
         T last = this.heap.entry(this.heapSize - 1);
-        //"replace" the first node with the last node 
+        //"replace" the first node with the last node
         this.heap.replaceEntry(0, last);
         //decrement heapsize, the old last node is now a dummy variable
         this.heapSize--;
@@ -533,15 +536,14 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
 
     @Override
     public final int size() {
-       int size = 0; 
-       if(this.isInInsertionMode()) {
-           size = this.entries.length(); 
-       }
-       else {
-           size = this.heapSize; 
-       }
-       assert this.conventionHolds();
-       return size; 
+        int size = 0;
+        if (this.isInInsertionMode()) {
+            size = this.entries.length();
+        } else {
+            size = this.heapSize;
+        }
+        assert this.conventionHolds();
+        return size;
     }
 
     @Override

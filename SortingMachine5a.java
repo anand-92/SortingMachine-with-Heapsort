@@ -290,7 +290,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         Array<T> heap = new Array1L<T>(length);
         
         //set entries in heap one by one from q
-        for(int i=0; i<length; i++)
+        for (int i = 0; q.length() > 0; i++) {
         {
             heap.setEntry(i, q.dequeue());
         }

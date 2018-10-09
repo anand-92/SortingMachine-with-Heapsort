@@ -483,15 +483,17 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
 
         this.entries.enqueue(x);
-
         assert this.conventionHolds();
     }
 
     @Override
     public final void changeToExtractionMode() {
         assert this.isInInsertionMode() : "Violation of: this.insertion_mode";
+        //change insertion mode to false
         this.insertionMode = false;
+        //set the size of the heap to the number of entries
         this.heapSize = this.entries.length();
+        //build the heap from the entries and the provided order
         this.heap = buildHeap(this.entries, this.machineOrder);
         assert this.conventionHolds();
     }
@@ -501,11 +503,14 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
         assert !this
                 .isInInsertionMode() : "Violation of: not this.insertion_mode";
         assert this.size() > 0 : "Violation of: this.contents /= {}";
-
+        //initialize the values of the first and last nodes
         T first = this.heap.entry(0);
         T last = this.heap.entry(this.heapSize - 1);
+        //"replace" the first node with the last node 
         this.heap.replaceEntry(0, last);
+        //decrement heapsize, the old last node is now a dummy variable
         this.heapSize--;
+        //sift the new top node down to its correct place
         siftDown(this.heap, 0, this.heapSize - 1, this.machineOrder);
 
         assert this.conventionHolds();

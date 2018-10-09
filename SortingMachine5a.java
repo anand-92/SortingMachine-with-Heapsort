@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import components.array.Array;
 import components.queue.Queue;
+import components.queue.Queue2;
 import components.sortingmachine.SortingMachine;
 import components.sortingmachine.SortingMachineSecondary;
 
@@ -131,7 +132,7 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
      */
     private static <T> void siftDown(Array<T> array, int top, int last,
             Comparator<T> order) {
-        assert array != null : "Violation of: array is not null";
+         assert array != null : "Violation of: array is not null";
         assert order != null : "Violation of: order is not null";
         assert 0 <= top : "Violation of: 0 <= top";
         assert last < array.length() : "Violation of: last < |array.entries|";
@@ -151,9 +152,51 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
          * representation for a complete binary tree.
          */
 
-        // TODO - fill in body
-        // *** you must use the recursive algorithm discussed in class ***
+        //initialize the index of the root and the indexes/values of
+        //its left and right children
+        T root = array.entry(top);
+        T left = null;
+        int leftIndex = 2 * top + 1;
+        T right = null;
+        int rightIndex = leftIndex + 1;
+        //initialize variables that will represent the "smallest" child of top
+        T smallestChild = null;
+        int smallestIndex = 0;
+        //booleans to check if the left and right children of top actually exist
+        boolean leftExists = false, rightExists = false;
+        //if leftIndex <= last, then left is in the heap
+        if (leftIndex <= last) {
+            left = array.entry(leftIndex);
+            leftExists = true;
+        }
+        //if rightIndex <= last, then right is in the heap
+        if (rightIndex <= last) {
+            right = array.entry(rightIndex);
+            rightExists = true;
+        }
 
+        // ***the recursive algorithm discussed in class ***
+
+        //if only left exists then its the smaller child by default
+        if (leftExists && !rightExists) {
+            smallestChild = left;
+            smallestIndex = leftIndex;
+            //if left is larger than right, then right is the smaller child
+        } else if (order.compare(left, right) > 0) {
+            smallestChild = right;
+            smallestIndex = rightIndex;
+            //if left is smaller than right, then left is the smaller child
+        } else if (order.compare(left, right) < 0) {
+            smallestChild = left;
+            smallestIndex = rightIndex;
+        }
+        //if the smaller child exists and its value is less than that of the
+        //root, swap the entries of the smaller child and the root.
+        if (order.compare(root, smallestChild) > 0 && leftExists) {
+            array.exchangeEntries(top, smallestIndex);
+            //now continue to sift the former top entry down the subtree
+            siftDown(array, smallestIndex, last, order);
+        }
     }
 
     /**
@@ -350,7 +393,10 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
      */
     private void createNewRep(Comparator<T> order) {
 
-        // TODO - fill in body
+        this.machineOrder = order;
+        this.entries = new Queue2<T>();
+        this.insertionMode = true;
+        this.heapSize = 0;
 
     }
 

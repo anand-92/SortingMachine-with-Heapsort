@@ -178,25 +178,28 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
 
         // ***the recursive algorithm discussed in class ***
 
-        //if only left exists then its the smaller child by default
-        if (leftExists && !rightExists) {
-            smallestChild = left;
-            smallestIndex = leftIndex;
-            //if left is larger than right, then right is the smaller child
-        } else if (order.compare(left, right) > 0) {
-            smallestChild = right;
-            smallestIndex = rightIndex;
-            //if left is smaller than right, then left is the smaller child
-        } else if (order.compare(left, right) < 0) {
-            smallestChild = left;
-            smallestIndex = rightIndex;
-        }
-        //if the smaller child exists and its value is less than that of the
-        //root, swap the entries of the smaller child and the root.
-        if (order.compare(root, smallestChild) > 0 && leftExists) {
-            array.exchangeEntries(top, smallestIndex);
-            //now continue to sift the former top entry down the subtree
-            siftDown(array, smallestIndex, last, order);
+      //if left doesn't exist, then there are no children to sift down to
+        if (leftExists) {
+            //if only left exists then its the smaller child by default
+            if (leftExists && !rightExists) {
+                smallestChild = left;
+                smallestIndex = leftIndex;
+                //if left is larger than right, then right is the smaller child
+            } else if (order.compare(left, right) > 0) {
+                smallestChild = right;
+                smallestIndex = rightIndex;
+                //if left is smaller than right, then left is the smaller child
+            } else if (order.compare(left, right) < 0) {
+                smallestChild = left;
+                smallestIndex = rightIndex;
+            }
+            //if the smaller child exists and its value is less than that of the
+            //root, swap the entries of the smaller child and the root.
+            if (order.compare(root, smallestChild) > 0 && leftExists) {
+                array.exchangeEntries(top, smallestIndex);
+                //now continue to sift the former top entry down the subtree
+                siftDown(array, smallestIndex, last, order);
+            }
         }
     }
 
@@ -286,17 +289,16 @@ public class SortingMachine5a<T> extends SortingMachineSecondary<T> {
          */
 
         //grab length of q and create new heap with length of q
-        int length=q.length();
+        int length = q.length();
         Array<T> heap = new Array1L<T>(length);
-        
+
         //set entries in heap one by one from q
         for (int i = 0; q.length() > 0; i++) {
-        {
+
             heap.setEntry(i, q.dequeue());
         }
         //heapify the newly created heap
-        heapify(heap,0,order);
-        
+        heapify(heap, 0, order);
         return heap;
     }
 
